@@ -76,6 +76,7 @@ module ActionView::Helpers::DateHelper
       return '' if datetime.blank?
 
       hour = datetime.kind_of?(Fixnum) ? datetime : datetime.hour
+      hour = 12 if hour == 0
       hour -= 12 if hour > 12
 
       return hour
