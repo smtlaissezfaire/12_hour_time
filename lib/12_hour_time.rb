@@ -24,20 +24,16 @@ module ActionView::Helpers::DateHelper
   def select_hour_with_ampm(datetime, options = {}) 
     options[:twelve_hour] or return select_hour_without_ampm(datetime, options)
 
-    val = ''
-    if datetime
-      val = datetime.kind_of?(Fixnum) ? datetime : datetime.hour
-      val -= 12 if val > 12
-    end
+    hour = _12_hour(datetime)
 
     if options[:use_hidden]
-      return hidden_html(options[:field_name] || 'hour', val, options)
+      return hidden_html(options[:field_name] || 'hour', hour, options)
     end
 
     hour_options = []
-    1.upto(12) do |hour|
+    1.upto(12) do |val|
       selected = (hour == val) ? ' selected="selected"' : ''
-      hour_options << %(<option value="#{leading_zero_on_single_digits(hour)}"#{selected}>#{leading_zero_on_single_digits(hour)}</option>\n)
+      hour_options << %(<option value="#{leading_zero_on_single_digits(val)}"#{selected}>#{leading_zero_on_single_digits(val)}</option>\n)
     end
 
     select_html(options[:field_name] || 'hour', hour_options, options)
@@ -73,6 +69,17 @@ module ActionView::Helpers::DateHelper
   end
 
   alias_method_chain :select_time, :ampm
+
+  private
+    
+    def _12_hour(datetime)
+      return '' if datetime.blank?
+
+      hour = datetime.kind_of?(Fixnum) ? datetime : datetime.hour
+      hour -= 12 if hour > 12
+
+      return hour
+    end
 end
 
 class ActionView::Helpers::InstanceTag

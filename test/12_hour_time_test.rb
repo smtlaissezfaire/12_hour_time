@@ -19,6 +19,14 @@ class TwelveHourTimeTest < Test::Unit::TestCase
   include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::DateHelper
 
+  def test_24_to_12_hour
+    assert_equal(12, _12_hour(0), "12 AM")
+    assert_equal(1, _12_hour(1), "1 AM")
+    assert_equal(12, _12_hour(12), "12 PM")
+    assert_equal(1, _12_hour(13), "1 PM")
+    assert_equal(12, _12_hour(24), "12 AM")
+  end
+
   def test_select_hour_12
     time = Time.parse '2005-07-27 15:03:34'
 
