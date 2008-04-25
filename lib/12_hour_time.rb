@@ -62,6 +62,7 @@ module ActionView::Helpers::DateHelper
       ampm_options << ((val == meridian) ?
         content_tag(:option, label[meridiem], :value => meridiem, :selected => "selected") :
         content_tag(:option, label[meridiem], :value => meridiem)
+      )
       ampm_options << "\n"
     end
     select_html(options[:field_name] || 'ampm', ampm_options, options, html_options)
