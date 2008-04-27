@@ -28,7 +28,7 @@ module ActionView::Helpers::DateHelper
     val = _12_hour(datetime)
 
     if options[:use_hidden]
-      return hidden_html(options[:field_name] || 'hour', hour, options)
+      return hidden_html(options[:field_name] || 'hour', val, options)
     end
 
     hour_options = []
