@@ -59,7 +59,7 @@ module ActionView::Helpers::DateHelper
     ampm_options = []
     label = { AM => 'AM', PM => 'PM' }
     [AM, PM].each do |meridiem|
-      ampm_options << ((val == meridian) ?
+      ampm_options << ((val == meridiem) ?
         content_tag(:option, label[meridiem], :value => meridiem, :selected => "selected") :
         content_tag(:option, label[meridiem], :value => meridiem)
       )
