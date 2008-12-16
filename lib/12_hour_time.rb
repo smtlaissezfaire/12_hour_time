@@ -48,7 +48,7 @@ module ActionView::Helpers
     alias_method_chain :select_hour, :ampm
 
     def select_ampm
-      selected = hour < 12 ? AM : PM
+      selected = hour < 12 ? AM : PM unless hour.nil?
 
       # XXX i18n? 
       label = { AM => 'AM', PM => 'PM' }
@@ -73,6 +73,8 @@ module ActionView::Helpers
     alias_method_chain :build_selects_from_types, :ampm
 
     def hour12
+      return nil if hour.nil?
+
       h12 = hour % 12
       h12 = 12 if h12 == 0
       return h12
